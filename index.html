@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percent Error Calculator</title>
+    <style>
+        html, body {
+            height: 75%; 
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: white; 
+            color: #fff;
+            text-align: center;
+        }
+
+        h1 {
+            background-color: rgb(182, 0, 0);
+            color: #fff;
+            font-size: 1rem;
+            margin: 0;
+            padding: 20px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            text-transform: uppercase;
+        }
+
+        .container-for-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%; 
+        }
+
+        .percent-container {
+            background-color: #fff; 
+            color: #000; 
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            padding: 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            font-size: 1.2rem;
+            margin: 10px 0 5px;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 2px solid rgb(182, 0, 0);
+            border-radius: 10px;
+            font-size: 1rem;
+            text-align: start;
+        }
+
+        button {
+            background-color: rgb(133, 0, 0);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background-color: rgb(182, 0, 0);
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: rgb(54, 0, 0);
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Percent Error Calculator</h1>
+
+    <div class="container-for-container">
+        <div class="percent-container">
+            <label for="observed">Observed Value</label>
+            <input type="number" id="observed" placeholder="Enter observed value">
+
+            <label for="true">True Value</label>
+            <input type="number" id="true" placeholder="Enter true value">
+
+            <button onclick="calculatePercentError()">Calculate</button>
+
+            <div id="result"></div>
+        </div>
+    </div>
+
+    <script>
+        function calculatePercentError() {
+            const observed = parseFloat(document.getElementById("observed").value);
+            const trueValue = parseFloat(document.getElementById("true").value);
+
+            if (isNaN(observed) || isNaN(trueValue) || trueValue === 0) {
+                document.getElementById("result").innerHTML = 
+                    "<p style='color: black;'>Error: Please enter valid numeric values, and True Value cannot be zero.</p>";
+                return;
+            }
+
+            const error = Math.abs((observed - trueValue) / trueValue) * 100;
+
+            document.getElementById("result").innerHTML = `
+                <p>Steps</p>
+                <p class="highlight">(V<sub>observed</sub> - V<sub>true</sub>) / V<sub>true</sub> × 100</p>
+                <p>Substitute the values:</p>
+                <p class="highlight">(${observed} - ${trueValue}) / ${trueValue} × 100</p>
+                <p>The calculated Percent Error is:</p>
+                <p class="highlight">${error.toFixed(2)}%</p>
+            `;
+        }
+    </script>
+</body>
+</html>
